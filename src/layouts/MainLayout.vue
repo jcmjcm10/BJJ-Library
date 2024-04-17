@@ -26,9 +26,10 @@
         <q-item-label v-if="userName != ''" class="q-ma-sm" > {{ userName }}</q-item-label>
         <q-btn  v-if="userName == ''" flat class="q-ma-sm" style="font-size: 13px;" @click="loginPanell=true">Login</q-btn>
         <q-dialog v-model="loginPanell">
-          <q-card margin>
+          <LoginCard/>
+          <!-- <q-card margin>
             <q-input filled v-model="accesToken" @change="setAccesToken"></q-input>
-          </q-card>
+          </q-card> -->
         </q-dialog>
         <div style="">v0.0.1p</div>
       </q-toolbar>
@@ -71,13 +72,15 @@
 import { computed, defineComponent, ref } from 'vue'
 import { useLoginStore } from 'src/stores/login'
 import AddVideoCard from 'src/components/AddVideoCard.vue'
+import LoginCard from 'src/components/LoginCard.vue'
 
 
 export default defineComponent({
   name: 'MainLayout',
 
   components: {
-    AddVideoCard
+    AddVideoCard,
+    LoginCard
   },
 
   setup () {
