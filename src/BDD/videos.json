@@ -1,0 +1,179 @@
+{
+ "data": [
+  {
+    "id": 1,
+    "title": "Salida Guardia basica",
+    "tags": ["guardia", "salida", "pasage"],
+    "url": "https://www.youtube.com/embed/sFotnlwS7Zo?si=mVY8YcgNaInoryON",
+    "youtubeID": "sFotnlwS7Zo"
+  },
+  {
+    "id": 2,
+    "title": "Raspagem Guardia 1",
+    "tags": ["guardia","raspagem"],
+    "url": "https://www.youtube.com/embed/NAAkX_0anBU?si=w5cAimuAqFtMUjhD",
+    "youtubeID": "NAAkX_0anBU"
+  },
+  {
+    "id": 3,
+    "title": "Pasagem mediaguardia 1",
+    "tags": ["raspagem", "mediaGuardia"],
+    "url": "https://www.youtube.com/embed/Brau-6PX6wU?si=sRQOHF4CpWZXpKEn",
+    "youtubeID": "Brau-6PX6wU"
+  },
+  {
+    "id": 4,
+    "title": "Derribo de mano 1",
+    "tags": ["derribo", "queda", "derriboMano"],
+    "url": "https://www.youtube.com/embed/Cvpoln5Bz9I?si=aFx8faTujYuQ0WXp",
+    "youtubeID": "Cvpoln5Bz9I"
+  },
+  {
+    "id": 5,
+    "title": "Derribo de mano 2",
+    "tags": ["derribo", "queda", "derriboMano"],
+    "url": "https://www.youtube.com/embed/DvOTKPiAYvY?si=S3ubH76p4_PnarpZ",
+    "youtubeID": "DvOTKPiAYvY"
+  },
+  {
+    "id": 6,
+    "title": "Derribo de mano 3",
+    "tags": ["derribo", "queda", "derriboMano"],
+    "url": "https://www.youtube.com/embed/lhsmE1F0HDY?si=OxmFD15ERypX_7x9",
+    "youtubeID": "lhsmE1F0HDY"
+  },
+  {
+    "id": 7,
+    "title": "LLave de Brazo montada Brasileña",
+    "tags": ["montada", "montadaBrasileña", "llaveBrazo", "sumision"],
+    "url": "https://www.youtube.com/embed/4rVKcYJ_yn8?si=F-C6PFELTBRZLo-D",
+    "youtubeID": "4rVKcYJ_yn8"
+  },
+  {
+    "id": 8,
+    "title": "Pasagem guardia abierta 1",
+    "tags": ["Pasagem", "GuardiaAbierta"],
+    "url": "https://www.youtube.com/embed/7wCu4mMVjWA?si=RCACl-O-stWcaTuV",
+    "youtubeID": "7wCu4mMVjWA"
+  },
+  {
+    "id": 9,
+    "title": "Pasagem guardia abierta 2",
+    "tags": ["Pasagem", "GuardiaAbierta"],
+    "url": "https://www.youtube.com/embed/h1-sv-H5eYw?si=OULrNN-HHoe47UMh",
+    "youtubeID": "h1-sv-H5eYw"
+  },
+  {
+    "id": 10,
+    "title": "Pasagem guardia abierta 3",
+    "tags": ["Pasagem", "GuardiaAbierta"],
+    "url": "https://www.youtube.com/embed/7g7_Iiit2zM?si=UnjYXQMdJXapotas",
+    "youtubeID": "7g7_Iiit2zM"
+  },
+  {
+    "id": 11,
+    "title": "Derribo sacrificio 1",
+    "tags": ["Derribo", "sacrificio"],
+    "url": "https://www.youtube.com/embed/3fYBFYVmE34?si=m623ms_Cgh9pFghn",
+    "youtubeID": "3fYBFYVmE34"
+  },
+  {
+    "id": 12,
+    "title": "Derribo sacrificio 2",
+    "tags": ["Derribo", "sacrificio"],
+    "url": "https://www.youtube.com/embed/zLrsdm3Ng6g?si=MeTa3e0SN-lTz7EP",
+    "youtubeID": "zLrsdm3Ng6g"
+  },
+  {
+    "id": 13,
+    "title": "Derribo sacrificio 3",
+    "tags": ["Derribo", "sacrificio"],
+    "url": "https://www.youtube.com/embed/_p0XS30bGAA?si=zTcPt4lQ6BqpoDhV",
+    "youtubeID": "_p0XS30bGAA"
+  },
+  {
+    "id": 14,
+    "title": "Raspagem aranha 1",
+    "tags": ["Raspagem", "aranha"],
+    "url": "https://www.youtube.com/embed/D4D-oogbcSA?si=CTV-rDr5j78900hD",
+    "youtubeID": "D4D-oogbcSA"
+  },
+  {
+    "id": 15,
+    "title": "Estrangulacion Guardia agarando mano",
+    "tags": ["Estrangulacion", "Guardia","sumision"],
+    "url": "https://www.youtube.com/embed/TkjE0ds9ox8?si=e7cdVDnRCirO_a_M",
+    "youtubeID": "TkjE0ds9ox8"
+  },
+  {
+    "id": 16,
+    "title": "LLave de brazo Guardia 1",
+    "tags": ["llaveBrazo", "Guardia", "sumision"],
+    "url": "https://www.youtube.com/embed/0E_mzOIU3_g?si=vUYuU6qzvjCiOLDN",
+    "youtubeID": "0E_mzOIU3_g"
+  },
+  {
+    "id": 17,
+    "title": "Llave de brazo guardia 2",
+    "tags": ["llaveBrazo", "Guardia", "sumision"],
+    "url": "https://www.youtube.com/embed/swSVoblYzms?si=kRcSuWu9KOniXGZk",
+    "youtubeID": "swSVoblYzms"
+  },
+  {
+    "id": 18,
+    "title": "Defensa Omoplata 1",
+    "tags": ["Omoplata", "Defensa", "sumision"],
+    "url": "https://www.youtube.com/embed/kKfBBXBJles?si=U6PMIvXJqSvsEDQy",
+    "youtubeID": "kKfBBXBJles"
+  },
+  {
+    "id": 19,
+    "title": "Defensa Single Leg 1",
+    "tags": ["Defensa", "singleLeg","sacrificio"],
+    "url": "https://www.youtube.com/embed/g4With-b4nk?si=KU3Jp7eHzeW75jJ2",
+    "youtubeID": "g4With-b4nk"
+  },
+  {
+    "id": 20,
+    "title": "Triangulo desde la guardia 1",
+    "tags": ["Triangulo", "guardia","sumision"],
+    "url": "https://www.youtube.com/embed/Ix-oduUlfCE?si=Z5EpDWqsqxLAX5Xb",
+    "youtubeID": "Ix-oduUlfCE"
+  },
+  {
+    "id": 21,
+    "title": "Omoplata desde la Guardia 1",
+    "tags": ["Omoplata", "guardia","sumision"],
+    "url": "https://www.youtube.com/embed/MSpAweboBkY?si=ak70ADQn61UrlDsB",
+    "youtubeID": "MSpAweboBkY"
+  },
+  {
+    "id": 22,
+    "title": "Llave brazo desde la guardia con la pela 1",
+    "tags": ["llaveBrazo", "guardia","sumision","pela"],
+    "url": "https://www.youtube.com/embed/C5RqTmVX2kU?si=zILyO0eQukgTa8K1",
+    "youtubeID": "C5RqTmVX2kU"
+  },
+  {
+    "id": 23,
+    "title": "Llave Brazo desde la guardia 2",
+    "tags": ["llaveBrazo", "guardia","sumision"],
+    "url": "https://www.youtube.com/embed/6Uv8MLJ05V0?si=6_KFIlBSx5VbK6Wh",
+    "youtubeID": "6Uv8MLJ05V0"
+  },
+  {
+    "id": 24,
+    "title": "Salida Montada 1",
+    "tags": ["salida", "montada"],
+    "url": "https://www.youtube.com/embed/2TBExOSBJHY?si=ngbjBRNO1rDpYDbH",
+    "youtubeID": "2TBExOSBJHY"
+  },
+  {
+    "id": 25,
+    "title": "Salida Montada 2",
+    "tags": ["salida", "montada"],
+    "url": "https://www.youtube.com/embed/rHDzvh847BY?si=0M3u56peQ32u25Aw",
+    "youtubeID": "rHDzvh847BY"
+  }
+ ] 
+}
