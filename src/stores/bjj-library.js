@@ -1,34 +1,31 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import * as BJJLIBRARY_API from 'src/API/bjj-library'
+import axios from 'axios'
+import { useLoginStore } from 'src/stores/login'
+
 
 export const useBjjLibraryStore = defineStore('bjj-library', () => {
+  const useLogin = useLoginStore()
+  
   const tecnicsList = ref([])
   const tagsList = ref([])
+  
 
-  //Actions
   const refreshData = () => {
-    const url = 'https://jcmjcm10.pythonanywhere.com/video/'
-    // const url = 'http://127.0.0.1:8000/video/'
-
-    fetch(url)
-    .then(response => {    
-      if (!response.ok) {
-        throw new Error(`Error de red - código ${response.status}`);
-      }
-      return response.json();
-    })
-    .then(json => {      
-      tecnicsList.value = json.results
-    })
-    .catch(error => {
-      console.error(`Error al leer el archivo JSON: ${error.message}`);
-    })
+    BJJLIBRARY_API.getVideos()
+      .then(response => {
+        if (response.status == 200) {
+          tecnicsList.value = response.data.results
+        }
+      })
   }
 
+
+  
   const updateTagsList = () => {
     BJJLIBRARY_API.getTags()
-      .then( response => {
+      .then(response => {
         tagsList.value = response.data.results
       })
   }
@@ -82,7 +79,8 @@ export const useBjjLibraryStore = defineStore('bjj-library', () => {
     saveVideo,
     updateVideo,
     getVideo,
-    deleteVideo
+    deleteVideo,
+    refreshData
   }
 
 })

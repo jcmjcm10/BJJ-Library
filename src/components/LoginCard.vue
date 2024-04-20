@@ -3,28 +3,40 @@
         <div class="content">
             <h1>Login</h1>
             <h2>e-mail</h2>
-        <input class="login-input" type="text">
+        <input class="login-input" type="text" v-model="username">
 
         <h2>Password</h2>
-        <input class="login-input" type="password">
+        <input class="login-input" type="password" v-model="password">
         <div class="button-login"> 
-            <button>Register</button>
-            <button>Login</button>    
+            <button @click="login()">Login</button>    
         </div>   
     </div>
 </div>
 </template>
 
 <script>
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
+
+import { useLoginStore } from 'src/stores/login'
 
 export default defineComponent({
-    name: 'MainLayout',
-    
+    name: 'MainLayout',    
     components: {
     },
-    setup () {
+    setup (props, context) {
+      const useLogin = useLoginStore()
+      const username = ref('')
+      const password = ref('')
 
+      function login() {
+        useLogin.login(username.value, password.value)
+      }
+
+      return {
+        login,
+        username,
+        password
+      }
     }
 })  
 </script>
@@ -91,7 +103,7 @@ export default defineComponent({
 }
 
 .button-login button {
-  width: 45%;
+  width: 100%;
   height: 50px;
   margin-top: 20px;
   border: 1px solid rgb(236, 236, 236);
@@ -100,18 +112,6 @@ export default defineComponent({
   color: white;
   font-size: 20px;
   box-sizing: border-box;
-}
-.button-login button:first-child {
-  background: rgb(255, 255, 255);
-  margin-right: 10%;
-  outline: 3px solid rgba(25, 118, 210,1);
-  color: rgba(25, 118, 210,1);
-  height: 47px;
-}
-
-.button-login button:first-child:hover {
-  background: rgba(25, 118, 210, 0.244);
-
 }
 
 .button-login button:hover {

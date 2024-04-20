@@ -4,7 +4,7 @@
       <SearchBar
         @onTxtSearchChange="onTxtSearchChange"
       />
-      <q-btn @click="onDebug">Debug</q-btn>
+      <q-btn v-if="true" @click="onDebug">Logout</q-btn>
       <div style="display: flex;">
         <p style="margin-left: 10px;">Totales: {{ getNTotalVideosList() }} </p>
         <p style="margin-left: 15px;">Filtrados: {{ getNFiltredVideosList() }}</p>
@@ -47,8 +47,10 @@ import SearchBar from 'src/components/SearchBar.vue'
 import VideoCard from 'src/components/VideoCard.vue'
 import EditVideoCard from 'src/components/EditVideoCard.vue'
 import { useBjjLibraryStore } from 'src/stores/bjj-library'
+import { useLoginStore } from 'src/stores/login'
 
 const useBjjLibrary = useBjjLibraryStore()
+const useLogin = useLoginStore()
 
 const tecnicsList = computed(() => {return useBjjLibrary.tecnicsList})
 const tecnicsListFiltred = ref([])
@@ -66,8 +68,7 @@ export default defineComponent({
     const showVideo = ref(false)
     const urlVideo = ref('')
     function onDebug () {
-      console.log("Debug")
-      console.log(tecnicsList.value)
+      useLogin.logout()
     }
     
     function onTxtSearchChange (newTxtSearch) {
@@ -147,7 +148,6 @@ export default defineComponent({
     }
 
     function setAndshowVideo (url) {
-      console.log("show video")
       urlVideo.value = url;
       showVideo.value = true;
     }
@@ -166,7 +166,6 @@ export default defineComponent({
     }
 
     function closeUpdateVideoPanell () {
-      console.log('************')
       updateVideoPanell.value = false
     }
 

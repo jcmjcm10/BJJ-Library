@@ -11,7 +11,6 @@
       </div>
     </q-input>
   </q-item>
-  <q-btn @click="$emit('onTxtSearchChange',txtSearch)">Buscar</q-btn>
  
 </template>
 
@@ -90,7 +89,6 @@ export default defineComponent({
     }
 
     function search () {
-      console.log('ejecuto')
       context.emit('onTxtSearchChange',txtSearch.value)
     }
 

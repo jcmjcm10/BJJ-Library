@@ -45,7 +45,6 @@ export default defineComponent({
     linkMiniatura.value = `https://img.youtube.com/vi/${props.youtubeID}/sddefault.jpg`
 
     function videoContextMenu () {
-      console.log(videoMenu.value)
       videoMenu.value.show()
     }
 

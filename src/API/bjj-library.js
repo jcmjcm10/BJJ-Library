@@ -1,26 +1,56 @@
 import axios from 'axios'
 import { useLoginStore } from 'src/stores/login'
-const useLogin = useLoginStore()
-// const API_ROOT = 'http://127.0.0.1:8000/'
-const API_ROOT = 'https://jcmjcm10.pythonanywhere.com/'
+const API_ROOT = 'http://127.0.0.1:8000/'
+// const API_ROOT = 'https://jcmjcm10.pythonanywhere.com/'
 
-export function getTags () {
-    const url = API_ROOT + 'Tag/'
-    return axios.get(url)
-}
 
 export function getAxiosConfig () {
+    const useLogin = useLoginStore()
     const axiosConfig = {
         headers: {
             'Content-Type': 'application/json',
-            Authorization: useLogin.getAccesToken()
+            Authorization: 'Token ' + useLogin.getAccesToken()
         }
     }
     return axiosConfig
 }
 
+export function getVideos () {
+    const url = API_ROOT + 'video/'
+    return axios.get(url, getAxiosConfig())
+}
+
+export function getTags () {
+    const url = API_ROOT + 'Tag/'
+    return axios.get(url, getAxiosConfig())
+}
+
+
+//Login
+export function login (requestBody) {
+    const useLogin = useLoginStore()
+    const url = API_ROOT + 'login/'
+    return axios.post(url, requestBody)
+    .then(response => {
+        if (response.status == 201) {
+            const authentication = {
+                username: response.data.user.username,
+                email: response.data.user.email,
+                accesToken: response.data.token,
+            }
+            useLogin.setAuthentification(authentication)
+        }
+    })
+}
+
+export function logout (token) {
+    const useLogin = useLoginStore()
+    const url = API_ROOT + 'logout/' + '?token=' + token
+    return axios.get(url)
+}
+
 export function addVideo (requestBody) {
-    console.log(useLogin.getAccesToken())
+    const useLogin = useLoginStore()
     const url = API_ROOT + 'video/'
     requestBody.accestoken = useLogin.getAccesToken()
     const requestVideo = requestBody
@@ -36,6 +66,7 @@ export function addVideo (requestBody) {
 }
 
 export function updateVideo (requestBody) {
+    const useLogin = useLoginStore()
     requestBody.accestoken = useLogin.getAccesToken()
     const url = API_ROOT + 'video/' + requestBody.id + '/'
     const requestVideo = requestBody
