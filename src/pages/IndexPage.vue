@@ -1,16 +1,15 @@
 <template>
   <q-page class="">
-    <div >
+    <div style="margin-top: 10px;">
       <SearchBar
         @onTxtSearchChange="onTxtSearchChange"
       />
-      <q-btn v-if="true" @click="onDebug">Logout</q-btn>
       <div style="display: flex;">
         <p style="margin-left: 10px;">Totales: {{ getNTotalVideosList() }} </p>
         <p style="margin-left: 15px;">Filtrados: {{ getNFiltredVideosList() }}</p>
       </div>
     </div>
-    <div style="align-items: center; justify-content: center;">
+    <div style="align-items: center; justify-content: center; margin-top: -40px; margin-left: 12px;">
       <div class="q-pa-md row items-start q-gutter-md">
         <VideoCard 
         v-for="tecnic in tecnicsListFiltred"
@@ -52,7 +51,7 @@ import { useLoginStore } from 'src/stores/login'
 const useBjjLibrary = useBjjLibraryStore()
 const useLogin = useLoginStore()
 
-const tecnicsList = computed(() => {return useBjjLibrary.tecnicsList})
+
 const tecnicsListFiltred = ref([])
 const updateVideoPanell = ref(false)
 const idVideoEdit = ref(null)
@@ -64,11 +63,18 @@ export default defineComponent({
     EditVideoCard
   },
   setup(props, context) {
+
+    const tecnicsList = computed(() => {
+      setTimeout(()=> {
+        filter('')
+      }, 100)
+      return useBjjLibrary.tecnicsList
+    })
+
     const txtSearch = ref('')
     const showVideo = ref(false)
     const urlVideo = ref('')
     function onDebug () {
-      useLogin.logout()
     }
     
     function onTxtSearchChange (newTxtSearch) {
@@ -76,6 +82,9 @@ export default defineComponent({
     }
 
     function filter(search) {
+      if (tecnicsList.value.length == 0) {
+        return
+      }
       search = search.toLowerCase()
       tecnicsListFiltred.value = []
       if(search == '') {

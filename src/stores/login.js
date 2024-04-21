@@ -2,15 +2,24 @@ import { defineStore } from 'pinia'
 import { ref } from 'vue'
 
 import * as BJJLIBRARY_API from 'src/API/bjj-library'
-
+import { useBjjLibraryStore } from 'src/stores/bjj-library'
 
 export const useLoginStore = defineStore('login', () => {
   const authentication = ref({
     username: '',
     email:'',
-    accesToken:''
+    accesToken:'',
+    isAuthenticate: false
   })
-  authentication.value.accesToken = localStorage.getItem('accesToken')
+
+  //Start methods
+  getUserData()
+  //private
+  function getUserData () {
+    if (localStorage.getItem('authentication') !== null) {
+      authentication.value =  JSON.parse(localStorage.getItem('authentication'))    
+    }
+  }
 
   //Geters
   function getUserName () {
@@ -25,31 +34,45 @@ export const useLoginStore = defineStore('login', () => {
     return authentication.value.accesToken 
   }
 
-  //seters
-  function setAccestoken (token) {
-    localStorage.setItem('accesToken', token)
-    authentication.value.accesToken = token
+  function getAuthentication () {
+    return authentication.value
   }
 
-  function setAuthentification (authentication) {
-    authentication.value = authentication
-    setAccestoken(authentication.accesToken)
-    console.log('authentification', authentication.value)
+  function isAuthenticate () {
+    return authentication.value.isAuthenticate
+  }
+
+  //seters
+  function setAccestoken (token) {
+    authentication.value.accesToken = token
+    localStorage.setItem('authentication', JSON.stringify(authentication.value))
+  }
+
+  function setAuthentication (auth) {
+    authentication.value = auth
+    localStorage.setItem('authentication', JSON.stringify(authentication.value))
   }
 
   //Actions
   function login (username, password) {
-    BJJLIBRARY_API.login({ username:username, password:password})
+    
+    const promis = BJJLIBRARY_API.login({ username:username, password:password})
+    promis.then((response) => {
+      const useBjjlibrary = useBjjLibraryStore()
+      useBjjlibrary.refreshData()
+    })
+    return promis
   }
 
   function logout () {
     BJJLIBRARY_API.logout(getAccesToken())
-    localStorage.setItem('accesToken', '')
+    localStorage.removeItem('authentication')   
     authentication.value = {
       username: '',
       email:'',
-      accesToken:''
-    }    
+      accesToken:'',
+      isAuthenticate: false
+    }
   }
 
   return {
@@ -57,9 +80,12 @@ export const useLoginStore = defineStore('login', () => {
     getEmail,
     getAccesToken,
     setAccestoken,
-    setAuthentification,
+    setAuthentication,
     login,
-    logout
+    logout,
+    getAuthentication,
+    isAuthenticate,
+    authentication
   }
 
 })

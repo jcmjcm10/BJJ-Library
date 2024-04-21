@@ -19,6 +19,7 @@ export const useBjjLibraryStore = defineStore('bjj-library', () => {
           tecnicsList.value = response.data.results
         }
       })
+    updateTagsList()
   }
 
 

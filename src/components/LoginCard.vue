@@ -1,21 +1,40 @@
 <template>
-    <div class="login-panell">
+    <div class="login-panell" >
+
+      <div v-if="!isAuthenticate">
         <div class="content">
-            <h1>Login</h1>
-            <h2>e-mail</h2>
+        <h1>Login</h1>
+        <h2>e-mail</h2>
         <input class="login-input" type="text" v-model="username">
 
         <h2>Password</h2>
         <input class="login-input" type="password" v-model="password">
         <div class="button-login"> 
             <button @click="login()">Login</button>    
-        </div>   
+        </div>  
+      </div>      
     </div>
+    <div v-if="isAuthenticate" class="content-singin">
+        <div style="display: flex; align-items: center; justify-content: center;">
+          <q-img class="img-avatar"
+            src="src/assets/userDefaultPhoto.png"
+          />
+        </div>
+        <div style="display: flex; align-items: center; justify-content: center;">
+          <h1>{{ authentication.username }}</h1>
+        </div>
+        <div class="button-login"> 
+            <button @click="logout()">Logout</button>    
+        </div>    
+    </div>
+    
+     
+
 </div>
 </template>
 
 <script>
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, computed } from 'vue'
 
 import { useLoginStore } from 'src/stores/login'
 
@@ -27,15 +46,30 @@ export default defineComponent({
       const useLogin = useLoginStore()
       const username = ref('')
       const password = ref('')
-
+      const isAuthenticate = ref(useLogin.isAuthenticate())
+      const authentication = computed(()=> useLogin.getAuthentication())
+      
       function login() {
         useLogin.login(username.value, password.value)
+        .then((response)=> {          
+          if (response.status === 201) {
+            isAuthenticate.value = true
+          }
+        })
+      }
+
+      function logout() {
+        useLogin.logout()
+        isAuthenticate.value = false
       }
 
       return {
         login,
+        logout,
         username,
-        password
+        password,
+        isAuthenticate,
+        authentication,
       }
     }
 })  
@@ -43,6 +77,9 @@ export default defineComponent({
 
 <style>
 .login-panell {
+  display: flex;
+  align-items: center; 
+  justify-content: center;
   font-family: 'Pin-Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', Helvetica, 'ヒラギノ角ゴ Pro W3', 'メイリオ', Meiryo, 'ＭＳ Ｐゴシック', Arial, sans-serif;
   width: 350px;
   height: 400px;
@@ -117,4 +154,23 @@ export default defineComponent({
 .button-login button:hover {
   background: rgba(25, 118, 210, 0.875);
 }
+
+.img-avatar {
+  width:100px;
+  height: 100px;
+  margin-top: 70px;
+}
+
+.content-singin {
+  display: block;
+  width: 75%;
+  height: 100%
+}
+.content-singin h1 {
+  font-size: 32px;
+  height: 55px;
+  font-weight: bold;
+  margin-top: -15px;  
+}
+
 </style>

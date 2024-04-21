@@ -30,17 +30,20 @@ export function getTags () {
 export function login (requestBody) {
     const useLogin = useLoginStore()
     const url = API_ROOT + 'login/'
-    return axios.post(url, requestBody)
-    .then(response => {
+    const promis = axios.post(url, requestBody)
+    promis.then(response => {
         if (response.status == 201) {
             const authentication = {
                 username: response.data.user.username,
                 email: response.data.user.email,
                 accesToken: response.data.token,
+                isAuthenticate: true
             }
-            useLogin.setAuthentification(authentication)
+            useLogin.setAuthentication(authentication)
         }
     })
+    return promis
+
 }
 
 export function logout (token) {

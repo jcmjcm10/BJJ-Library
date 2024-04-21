@@ -16,14 +16,14 @@
         </q-toolbar-title>
         
         <!--Añadir video-->
-        <q-btn @click="addVideoPanell = true">ADD</q-btn>
+        <q-btn class="addvideo-btn" round icon="add" @click="addVideoPanell = true"></q-btn>
         <q-dialog v-model="addVideoPanell">
           <AddVideoCard  @closeAddVideoPanell="closeAddVideoPanell"/>
         </q-dialog>
 
 
         <!--Apartado de login-->
-        <q-item-label v-if="userName != ''" class="q-ma-sm" > {{ userName }}</q-item-label>
+        <q-item-label v-if="userName != ''" class="q-ma-sm"  @click="loginPanell=true"> {{ userName }}</q-item-label>
         <q-btn  v-if="userName == ''" flat class="q-ma-sm" style="font-size: 13px;" @click="loginPanell=true">Login</q-btn>
         <q-dialog v-model="loginPanell">
           <LoginCard/>
@@ -31,7 +31,6 @@
             <q-input filled v-model="accesToken" @change="setAccesToken"></q-input>
           </q-card> -->
         </q-dialog>
-        <div style="">v0.0.1p</div>
       </q-toolbar>
     </q-header>    
     
@@ -41,13 +40,14 @@
       show-if-above
       bordered
     >
-      <q-list>
-        <q-item-label
-          header
-          style="color: black"
-        >
-          <p style="font-size: 23px;">Tablon de Anuncios</p>
-        </q-item-label>
+    <q-list>
+      <q-item-label
+      header
+      style="color: black"
+      >
+      <p style="font-size: 23px;">Tablon de Anuncios</p>
+      <div>versión: 0.0.1b</div>
+    </q-item-label>
        
         <!--Anuncio1-->
         <q-card style="margin: 10px; background-color: rgba(242, 255, 0, 0.072);">
@@ -118,3 +118,15 @@ export default defineComponent({
   }
 })
 </script>
+
+
+<style>
+
+.addvideo-btn {
+  background: var(--q-primary);
+  position: fixed;
+  bottom: 10px;
+  right: 20px;
+}
+
+</style>
