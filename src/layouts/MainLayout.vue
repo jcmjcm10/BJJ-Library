@@ -16,7 +16,6 @@
         </q-toolbar-title>
         
         <!--Añadir video-->
-        <q-btn class="addvideo-btn" round icon="add" @click="addVideoPanell = true"></q-btn>
         <q-dialog v-model="addVideoPanell">
           <AddVideoCard  @closeAddVideoPanell="closeAddVideoPanell"/>
         </q-dialog>
@@ -60,6 +59,14 @@
       </q-list>
     </q-drawer>
 
+    <q-footer bordered style=" color:white;">
+        <q-tabs no-caps indicator-color="transparent" v-model="tabMenu" @click="onClickBottomMenu(tabMenu)">
+          <q-tab name="videos" label="Videos" />
+          <q-tab name="add" label="Añadir" />
+          <q-tab name="lists" label="Listas" />
+        </q-tabs>
+      </q-footer>
+      
     <!--Contenido de la pagina-->
     <q-page-container>
       <router-view @editVideo="editVideo" />
@@ -70,6 +77,7 @@
 
 <script>
 import { computed, defineComponent, ref } from 'vue'
+import { useRouter } from 'vue-router'
 import { useLoginStore } from 'src/stores/login'
 import AddVideoCard from 'src/components/AddVideoCard.vue'
 import LoginCard from 'src/components/LoginCard.vue'
@@ -84,16 +92,39 @@ export default defineComponent({
   },
 
   setup () {
+    const router = useRouter()
     const useLogin = useLoginStore()
+
     const leftDrawerOpen = ref(false)
     const userName = computed(() => useLogin.getUserName())
     const addVideoPanell = ref(false)
     const accesToken = ref('')
     const loginPanell = ref(false)
+    const tabMenu = ref('default')
 
     function editVideo(id) {
       console.log('editando el video', id)
     }
+
+    function onClickBottomMenu (value) {
+      switch(value) {
+        case 'add':
+          openAddVideoPanell()
+          break
+        case 'videos':
+          router.push('/videos');
+          break
+        case 'lists':
+          router.push('/lists');
+          break
+        }
+       
+      }
+
+    function openAddVideoPanell () {
+      addVideoPanell.value = true
+    }
+
     function closeAddVideoPanell () {
       addVideoPanell.value = false
     }
@@ -108,10 +139,13 @@ export default defineComponent({
       addVideoPanell,
       loginPanell,
       accesToken,
+      tabMenu,
       toggleLeftDrawer () {
         leftDrawerOpen.value = !leftDrawerOpen.value
       },
       editVideo,
+      onClickBottomMenu,
+      openAddVideoPanell,
       closeAddVideoPanell,
       setAccesToken,
     }
@@ -125,7 +159,7 @@ export default defineComponent({
 .addvideo-btn {
   background: var(--q-primary);
   position: fixed;
-  bottom: 10px;
+  bottom: 80px;
   right: 20px;
 }
 
