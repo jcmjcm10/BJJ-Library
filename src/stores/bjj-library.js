@@ -6,12 +6,14 @@ import { useLoginStore } from 'src/stores/login'
 
 
 export const useBjjLibraryStore = defineStore('bjj-library', () => {
+  
+  //State
   const useLogin = useLoginStore()
-  
   const tecnicsList = ref([])
+  const listsSelected = ref([])
+  const techniquesLists = ref([])
   const tagsList = ref([])
-  
-
+  //Actions
   const refreshData = () => {
     BJJLIBRARY_API.getVideos()
       .then(response => {
@@ -20,14 +22,22 @@ export const useBjjLibraryStore = defineStore('bjj-library', () => {
         }
       })
     updateTagsList()
+    updateTechnicalsLists()
   }
-
-
   
   const updateTagsList = () => {
     BJJLIBRARY_API.getTags()
       .then(response => {
         tagsList.value = response.data.results
+      })
+  }
+
+  const updateTechnicalsLists = () => {
+     BJJLIBRARY_API.getVideoLists()
+      .then(response => {
+        if (response.status == 200) {
+          techniquesLists.value = response.data.results
+        }
       })
   }
   
@@ -65,6 +75,16 @@ export const useBjjLibraryStore = defineStore('bjj-library', () => {
     return result
   }
 
+  const getVideosOfListSelected = () => {
+    var result = []
+    techniquesLists.value.forEach((list) => {
+      if (listsSelected.value.includes(list.id)) {
+        result = result.concat(list.videos)
+      }
+    })
+    return result
+  }
+
   //Mutations
   const addTecnicsList = (tecnic) => {
     tecnicsList.value.push(tecnic)
@@ -76,12 +96,16 @@ export const useBjjLibraryStore = defineStore('bjj-library', () => {
   return {
     tecnicsList,
     tagsList,
+    techniquesLists,
+    listsSelected,
     updateTagsList,
     saveVideo,
     updateVideo,
     getVideo,
     deleteVideo,
-    refreshData
+    refreshData,
+    updateTechnicalsLists,
+    getVideosOfListSelected,
   }
 
 })

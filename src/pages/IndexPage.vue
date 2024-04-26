@@ -9,15 +9,12 @@
         <p style="margin-left: 15px;">Filtrados: {{ getNFiltredVideosList() }}</p>
       </div>
     </div>
-    <div style="align-items: center; justify-content: center; margin-top: -40px; margin-left: 12px;">
-      <div class="q-pa-md row items-start q-gutter-md">
+    <div style="align-items: center; justify-content: center; margin-top: -8px;">
+      <div>
         <VideoCard 
         v-for="tecnic in tecnicsListFiltred"
         :key="tecnic.id"
-        :id="tecnic.id"
-        :title="tecnic.title"
-        :url="tecnic.url"
-        :youtubeID="tecnic.youtubeID"
+        :video="tecnic"  
         @onClickVideo="setAndshowVideo"
         @editVideo="editVideo"
         />
@@ -29,9 +26,9 @@
     <q-dialog
       v-model="showVideo"
     >
-    <q-video
-      :src="urlVideo"
-      ></q-video>
+    <VideoPanel
+      :video="selectVideo"
+    ></VideoPanel>
     </q-dialog>
     <!--Edit video dialog-->
     <q-dialog   v-model="updateVideoPanell">
@@ -41,12 +38,15 @@
 </template>
 
 <script>
-import { defineComponent, ref, computed } from 'vue'
+import { defineComponent, ref, computed, onMounted } from 'vue'
+import { useBjjLibraryStore } from 'src/stores/bjj-library'
+
+import { useLoginStore } from 'src/stores/login'
+
 import SearchBar from 'src/components/SearchBar.vue'
 import VideoCard from 'src/components/VideoCard.vue'
 import EditVideoCard from 'src/components/EditVideoCard.vue'
-import { useBjjLibraryStore } from 'src/stores/bjj-library'
-import { useLoginStore } from 'src/stores/login'
+import VideoPanel from 'src/components/VideoPanel.vue'
 
 const useBjjLibrary = useBjjLibraryStore()
 const useLogin = useLoginStore()
@@ -60,7 +60,8 @@ export default defineComponent({
   components: {
     SearchBar,
     VideoCard,
-    EditVideoCard
+    EditVideoCard,
+    VideoPanel
   },
   setup(props, context) {
 
@@ -68,13 +69,24 @@ export default defineComponent({
       setTimeout(()=> {
         filter('')
       }, 100)
-      return useBjjLibrary.tecnicsList
+
+      if (!filterForList.value) 
+      {
+        return useBjjLibrary.tecnicsList
+
+      }
+      else {
+        return useBjjLibrary.getVideosOfListSelected()
+      }
+      
     })
 
     const txtSearch = ref('')
     const showVideo = ref(false)
-    const urlVideo = ref('')
+    const selectVideo = ref(null)
+    const filterForList = ref(false)
     function onDebug () {
+      useBjjLibrary.updateTechnicalsLists()
     }
     
     function onTxtSearchChange (newTxtSearch) {
@@ -156,8 +168,8 @@ export default defineComponent({
       return filterResult
     }
 
-    function setAndshowVideo (url) {
-      urlVideo.value = url;
+    function setAndshowVideo (video) {
+      selectVideo.value = video;
       showVideo.value = true;
     }
 
@@ -178,6 +190,12 @@ export default defineComponent({
       updateVideoPanell.value = false
     }
 
+    onMounted(()=> {
+      if (useBjjLibrary.listsSelected.length > 0) {
+        filterForList.value = true
+      }
+    })
+
     return {
       onDebug,
       onTxtSearchChange,
@@ -188,9 +206,9 @@ export default defineComponent({
       closeUpdateVideoPanell,
       showVideo,
       tecnicsListFiltred,
-      urlVideo,
       updateVideoPanell,
-      idVideoEdit
+      idVideoEdit,
+      selectVideo
     }
   }
   

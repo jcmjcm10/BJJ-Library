@@ -1,6 +1,6 @@
 <template>
   <q-item>
-    <q-input ref="searchBar" class="searchBar" style="width: 95%; margin: auto;" filled rounded outlined v-model="txtSearch" label="Buscador">
+    <q-input ref="searchBar" class="searchBar" style="width: 100%; margin: auto;" filled rounded outlined v-model="txtSearch" label="Buscador">
       <div v-if="showSearchPanel" class="continerMenu">
         <ul style="list-style: none;">
           <li @click="selectTag(tag)"

@@ -13,7 +13,7 @@
       </q-menu>
       <q-img :src=linkMiniatura>
         <div class="text-h5 absolute-bottom text-right" style="font-size: 20px;">
-          {{ title }}
+          {{ video.title }}
         </div>
       </q-img>
     </q-card>
@@ -36,28 +36,28 @@ const useBjjLibrary = useBjjLibraryStore()
 
 export default defineComponent({
   name: 'VideoCard',
-  props: ['id','title','url','youtubeID'],
+  props: ['video'],
   emits: ['onClickVideo', 'editVideo'],
   setup(props, context) {  
     const linkMiniatura = ref('')
     const videoMenu = ref(null)
     const confirmDeleteDialog = ref(false)
-    linkMiniatura.value = `https://img.youtube.com/vi/${props.youtubeID}/sddefault.jpg`
+    linkMiniatura.value = `https://img.youtube.com/vi/${props.video.youtubeID}/sddefault.jpg`
 
     function videoContextMenu () {
       videoMenu.value.show()
     }
 
     function editVideo () {
-      context.emit('editVideo', props.id)
+      context.emit('editVideo', props.video.id)
     }
 
     function deleteVideo () {
-      useBjjLibrary.deleteVideo(props.id)
+      useBjjLibrary.deleteVideo(props.video.id)
     }
 
     function onClickVideo () {
-      context.emit('onClickVideo',props.url)
+      context.emit('onClickVideo',props.video)
       videoMenu.value.hide()
 
     }
@@ -83,6 +83,5 @@ export default defineComponent({
 <style>
 .my-card{
   width: 100%;
-  max-width: 350px;
 }
 </style>

@@ -109,7 +109,7 @@ export default defineComponent({
     function onClickBottomMenu (value) {
       switch(value) {
         case 'add':
-          openAddVideoPanell()
+          router.push('/addVideo');
           break
         case 'videos':
           router.push('/videos');

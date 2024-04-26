@@ -5,7 +5,9 @@ const routes = [
     component: () => import('layouts/MainLayout.vue'),
     children: [
       { path: 'lists', component: () => import('pages/VideoListPage.vue') },
-      { path: 'videos', component: () => import('pages/IndexPage.vue') }
+      { path: 'videos', component: () => import('pages/IndexPage.vue') },
+      { path: 'addVideo', component: () => import('pages/AddVideoPage.vue') },
+      { path: '', component: () => import('pages/IndexPage.vue') }
     ]
   },
   // Always leave this as last one,
