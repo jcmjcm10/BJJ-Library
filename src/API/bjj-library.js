@@ -1,8 +1,8 @@
 import axios from 'axios'
 import { useLoginStore } from 'src/stores/login'
-// const API_ROOT = 'http://127.0.0.1:8000/'
+const API_ROOT = 'http://127.0.0.1:8000/'
 // const API_ROOT = 'https://jcmjcm10.pythonanywhere.com/'
-const API_ROOT = 'https://u1973231.pythonanywhere.com/'
+// const API_ROOT = 'https://u1973231.pythonanywhere.com/'
 
 
 export function getAxiosConfig () {
@@ -43,7 +43,8 @@ export function login (requestBody) {
                 username: response.data.user.username,
                 email: response.data.user.email,
                 accesToken: response.data.token,
-                isAuthenticate: true
+                isAuthenticate: true,
+                isStaff:  response.data.user.is_staff
             }
             useLogin.setAuthentication(authentication)
         }

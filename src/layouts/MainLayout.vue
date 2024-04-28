@@ -26,9 +26,6 @@
         <q-btn  v-if="userName == ''" flat class="q-ma-sm" style="font-size: 13px;" @click="loginPanell=true">Login</q-btn>
         <q-dialog v-model="loginPanell">
           <LoginCard/>
-          <!-- <q-card margin>
-            <q-input filled v-model="accesToken" @change="setAccesToken"></q-input>
-          </q-card> -->
         </q-dialog>
       </q-toolbar>
     </q-header>    
@@ -128,10 +125,6 @@ export default defineComponent({
     function closeAddVideoPanell () {
       addVideoPanell.value = false
     }
-    
-    function setAccesToken () {
-      useLogin.setAccestoken(accesToken.value)
-    }
 
     return {
       leftDrawerOpen,
@@ -147,7 +140,6 @@ export default defineComponent({
       onClickBottomMenu,
       openAddVideoPanell,
       closeAddVideoPanell,
-      setAccesToken,
     }
   }
 })

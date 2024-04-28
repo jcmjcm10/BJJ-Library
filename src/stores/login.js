@@ -9,7 +9,8 @@ export const useLoginStore = defineStore('login', () => {
     username: '',
     email:'',
     accesToken:'',
-    isAuthenticate: false
+    isAuthenticate: false,
+    isStaff: false,
   })
 
   //Start methods
@@ -71,7 +72,8 @@ export const useLoginStore = defineStore('login', () => {
       username: '',
       email:'',
       accesToken:'',
-      isAuthenticate: false
+      isAuthenticate: false,
+      isStaff: false
     }
   }
 

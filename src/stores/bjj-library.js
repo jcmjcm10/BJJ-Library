@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import * as BJJLIBRARY_API from 'src/API/bjj-library'
 import axios from 'axios'
 import { useLoginStore } from 'src/stores/login'
+import { list } from 'postcss'
 
 
 export const useBjjLibraryStore = defineStore('bjj-library', () => {
@@ -64,6 +65,7 @@ export const useBjjLibraryStore = defineStore('bjj-library', () => {
   }
 
   //Getters
+
   const getVideo = (id) => {
     var result = null
     tecnicsList.value.forEach( video => { //OPT: fer cerca y no recorregut
