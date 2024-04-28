@@ -50,6 +50,13 @@ export const useBjjLibraryStore = defineStore('bjj-library', () => {
 
   } 
 
+  const addList = (requestBody) => {
+    BJJLIBRARY_API.addList(requestBody)
+    .then(response => {
+      refreshData()
+    })
+  }
+
   const updateVideo = (requestBody) => {
     BJJLIBRARY_API.updateVideo(requestBody)
     .then(response => {
@@ -59,6 +66,13 @@ export const useBjjLibraryStore = defineStore('bjj-library', () => {
   
   const deleteVideo = (pk) => {
     BJJLIBRARY_API.deleteVideo(pk)
+    .then(response => {
+      refreshData()
+    })
+  }
+
+  const deleteList = (pk) => {
+    BJJLIBRARY_API.deleteList(pk)
     .then(response => {
       refreshData()
     })
@@ -86,11 +100,6 @@ export const useBjjLibraryStore = defineStore('bjj-library', () => {
     })
     return result
   }
-
-  //Mutations
-  const addTecnicsList = (tecnic) => {
-    tecnicsList.value.push(tecnic)
-  }
   
   refreshData()
   updateTagsList()
@@ -108,6 +117,8 @@ export const useBjjLibraryStore = defineStore('bjj-library', () => {
     refreshData,
     updateTechnicalsLists,
     getVideosOfListSelected,
+    addList,
+    deleteList,
   }
 
 })

@@ -86,15 +86,22 @@ export function updateVideo (requestBody) {
             requestBody.tags.forEach(tag => {
                 const requestVideoTag = {videoId: response.data.id, tagId: tag.value, edit: true}
                 axios.post(url, JSON.stringify(requestVideoTag), getAxiosConfig())
-            })            
+            })
         }
     })
 }
 
 export function deleteVideo (pk) {
-    const useLogin = useLoginStore()
-    var requestBody = {accestoken: useLogin.getAccesToken()}
     const url = API_ROOT + 'video/' + pk + '/'
     return axios.delete(url, getAxiosConfig())
 }
 
+export function addList (requestBody) {
+    const url = API_ROOT + 'VideoList/'
+    return axios.post(url,JSON.stringify(requestBody), getAxiosConfig())
+}
+
+export function deleteList (pk) {
+    const url = API_ROOT + 'VideoList/' + pk + '/'
+    return axios.delete(url, getAxiosConfig())
+}
