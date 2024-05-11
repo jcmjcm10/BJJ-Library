@@ -12,14 +12,12 @@
     <div style="align-items: center; justify-content: center; margin-top: -8px;">
       <div>
         <VideoCard 
-        v-for="tecnic in tecnicsListFiltred"
+        v-for="tecnic in pageVideos"
         :key="tecnic.id"
         :video="tecnic"  
         @onClickVideo="setAndshowVideo"
         @editVideo="editVideo"
-        />
-         
-        
+        />        
       </div>
     </div>
     <!--Video dialog-->
@@ -51,10 +49,10 @@ import VideoPanel from 'src/components/VideoPanel.vue'
 const useBjjLibrary = useBjjLibraryStore()
 const useLogin = useLoginStore()
 
-
 const tecnicsListFiltred = ref([])
 const updateVideoPanell = ref(false)
 const idVideoEdit = ref(null)
+
 export default defineComponent({
   name: 'IndexPage',
   components: {
@@ -65,6 +63,23 @@ export default defineComponent({
   },
   setup(props, context) {
 
+    // Constantes
+    const videosPerPage = 5
+    const maxVideosPerPage = 10    
+
+    // Variables
+    var firstVideoIndex = 0
+    var lastVideoIndex = videosPerPage
+    
+    
+    // Refs
+    const txtSearch = ref('')
+    const showVideo = ref(false)
+    const selectVideo = ref(null)
+    const filterForList = ref(false)
+    const pageVideos = ref([])
+
+    // Computeds
     const tecnicsList = computed(() => {
       setTimeout(()=> {
         filter('')
@@ -81,10 +96,6 @@ export default defineComponent({
       
     })
 
-    const txtSearch = ref('')
-    const showVideo = ref(false)
-    const selectVideo = ref(null)
-    const filterForList = ref(false)
     function onDebug () {
       useBjjLibrary.updateTechnicalsLists()
     }
@@ -190,10 +201,47 @@ export default defineComponent({
       updateVideoPanell.value = false
     }
 
+    function updateVideoPage () {
+      
+      if(tecnicsListFiltred.value.length > 0) {
+        if (lastVideoIndex >= tecnicsListFiltred.value.length) {
+          lastVideoIndex = tecnicsListFiltred.value.length - 1
+        }
+        pageVideos.value = tecnicsListFiltred.value.slice(firstVideoIndex, lastVideoIndex+1)
+      }
+    }
+
+
+    function detectFinalScroll () {
+      var element = document.documentElement;
+
+      var totalScroll = element.scrollHeight;
+      var topScroll = element.scrollTop;
+      var windowHeight = element.clientHeight;
+
+      if (totalScroll - topScroll < windowHeight + 200) {
+        lastVideoIndex += videosPerPage
+        // if (pageVideos.value.length > maxVideosPerPage) {
+        //   firstVideoIndex += videosPerPage
+        // }
+        updateVideoPage()
+      }
+
+    }
+
+
+
     onMounted(()=> {
+      
       if (useBjjLibrary.listsSelected.length > 0) {
         filterForList.value = true
       }
+      updateVideoPage()
+
+      // Events
+      document.addEventListener('scroll', detectFinalScroll)
+
+
     })
 
     return {
@@ -206,6 +254,7 @@ export default defineComponent({
       closeUpdateVideoPanell,
       showVideo,
       tecnicsListFiltred,
+      pageVideos,
       updateVideoPanell,
       idVideoEdit,
       selectVideo
