@@ -9,16 +9,13 @@
         <p style="margin-left: 15px;">Filtrados: {{ getNFiltredVideosList() }}</p>
       </div>
     </div>
-    <div style="align-items: center; justify-content: center; margin-top: -8px;">
-      <div>
-        <VideoCard 
-        v-for="tecnic in pageVideos"
-        :key="tecnic.id"
-        :video="tecnic"  
-        @onClickVideo="setAndshowVideo"
-        @editVideo="editVideo"
-        />        
-      </div>
+    <div class="video-grid">
+      <VideoCard 
+      v-for="tecnic in pageVideos"
+      :key="tecnic.id"
+      :video="tecnic"  
+      @onClickVideo="setAndshowVideo"
+      />        
     </div>
     <!--Video dialog-->
     <q-dialog
@@ -26,6 +23,7 @@
     >
     <VideoPanel
       :video="selectVideo"
+      @editVideo="editVideo"
     ></VideoPanel>
     </q-dialog>
     <!--Edit video dialog-->
@@ -39,15 +37,12 @@
 import { defineComponent, ref, computed, onMounted } from 'vue'
 import { useBjjLibraryStore } from 'src/stores/bjj-library'
 
-import { useLoginStore } from 'src/stores/login'
-
 import SearchBar from 'src/components/SearchBar.vue'
 import VideoCard from 'src/components/VideoCard.vue'
 import EditVideoCard from 'src/components/EditVideoCard.vue'
 import VideoPanel from 'src/components/VideoPanel.vue'
 
 const useBjjLibrary = useBjjLibraryStore()
-const useLogin = useLoginStore()
 
 const tecnicsListFiltred = ref([])
 const updateVideoPanell = ref(false)
@@ -64,7 +59,7 @@ export default defineComponent({
   setup(props, context) {
 
     // Constantes
-    const videosPerPage = 5
+    const videosPerPage = 10
     const maxVideosPerPage = 10    
 
     // Variables
@@ -84,7 +79,7 @@ export default defineComponent({
       setTimeout(()=> {
         filter('')
       }, 100)
-
+      updateVideoPage()
       if (!filterForList.value) 
       {
         return useBjjLibrary.tecnicsList
@@ -102,6 +97,7 @@ export default defineComponent({
     
     function onTxtSearchChange (newTxtSearch) {
       filter(newTxtSearch)
+      updateVideoPage()
     }
 
     function filter(search) {
@@ -237,7 +233,6 @@ export default defineComponent({
         filterForList.value = true
       }
       updateVideoPage()
-
       // Events
       document.addEventListener('scroll', detectFinalScroll)
 
@@ -263,3 +258,14 @@ export default defineComponent({
   
 })
 </script>
+
+<style>
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, auto));
+  gap: 0.5em;
+  margin: 0px;
+  padding: 0 15px 0 15px;
+}
+
+</style>
