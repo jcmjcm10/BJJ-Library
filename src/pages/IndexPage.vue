@@ -75,11 +75,8 @@ export default defineComponent({
     const pageVideos = ref([])
 
     // Computeds
-    const tecnicsList = computed(() => {
-      setTimeout(()=> {
-        filter('')
-      }, 100)
-      updateVideoPage()
+    const tecnicsList = computed(() => {    
+      refreshFilter()
       if (!filterForList.value) 
       {
         return useBjjLibrary.tecnicsList
@@ -91,11 +88,20 @@ export default defineComponent({
       
     })
 
+    function refreshFilter() {
+      setTimeout(()=> {
+        filter('')
+        updateVideoPage()
+      },100)    
+    }
+
     function onDebug () {
       useBjjLibrary.updateTechnicalsLists()
     }
     
     function onTxtSearchChange (newTxtSearch) {
+      firstVideoIndex = 0
+      lastVideoIndex = videosPerPage
       filter(newTxtSearch)
       updateVideoPage()
     }
@@ -204,6 +210,9 @@ export default defineComponent({
           lastVideoIndex = tecnicsListFiltred.value.length - 1
         }
         pageVideos.value = tecnicsListFiltred.value.slice(firstVideoIndex, lastVideoIndex+1)
+      }
+      else {
+        pageVideos.value = []
       }
     }
 
