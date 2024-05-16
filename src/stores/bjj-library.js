@@ -3,17 +3,18 @@ import { ref } from 'vue'
 import * as BJJLIBRARY_API from 'src/API/bjj-library'
 import axios from 'axios'
 import { useLoginStore } from 'src/stores/login'
-import { list } from 'postcss'
 
 
 export const useBjjLibraryStore = defineStore('bjj-library', () => {
   
   //State
   const useLogin = useLoginStore()
+
   const tecnicsList = ref([])
   const listsSelected = ref([])
   const techniquesLists = ref([])
   const tagsList = ref([])
+  
   //Actions
   const refreshData = () => {
     BJJLIBRARY_API.getVideos()
@@ -24,6 +25,7 @@ export const useBjjLibraryStore = defineStore('bjj-library', () => {
       })
     updateTagsList()
     updateTechnicalsLists()
+    console.log('Listas',techniquesLists.value)
   }
   
   const updateTagsList = () => {
@@ -78,6 +80,32 @@ export const useBjjLibraryStore = defineStore('bjj-library', () => {
     })
   }
 
+  const addVideoInList = (requestBody) => {
+    BJJLIBRARY_API.addVideoInList(requestBody)
+    .then((response) => {
+      if (response.status == 200) {
+        for(let i = 0; i < techniquesLists.value.length; i++) {
+          if (techniquesLists.value[i].id == response.data.id) {
+            techniquesLists.value[i] = response.data
+          }
+        }
+      }
+    })
+  }
+
+  const removeVideoInList = (requestBody) => {
+    BJJLIBRARY_API.removeVideoInList(requestBody)
+    .then((response) => {
+      if(response.status == 200) {
+        const videoList = techniquesLists.value[requestBody.list]
+        techniquesLists.value[requestBody.list].videos = videoList.videos.filter((video) => {
+          return video.id != requestBody.video
+        })
+      }
+    })
+  }
+
+
   //Getters
 
   const getVideo = (id) => {
@@ -119,6 +147,8 @@ export const useBjjLibraryStore = defineStore('bjj-library', () => {
     getVideosOfListSelected,
     addList,
     deleteList,
+    addVideoInList,
+    removeVideoInList,
   }
 
 })
