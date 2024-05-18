@@ -96,15 +96,15 @@ export const useBjjLibraryStore = defineStore('bjj-library', () => {
   const removeVideoInList = (requestBody) => {
     BJJLIBRARY_API.removeVideoInList(requestBody)
     .then((response) => {
-      if(response.status == 200) {
-        const videoList = techniquesLists.value[requestBody.list]
-        techniquesLists.value[requestBody.list].videos = videoList.videos.filter((video) => {
+      if(response.status == 200) {        
+        let list_index = techniquesLists.value.findIndex((list) => list.id == requestBody.list)
+        const videoList = techniquesLists.value[list_index]
+        techniquesLists.value[list_index].videos = videoList.videos.filter((video) => {
           return video.id != requestBody.video
         })
       }
     })
   }
-
 
   //Getters
 
@@ -116,6 +116,16 @@ export const useBjjLibraryStore = defineStore('bjj-library', () => {
         result = video
       }
     })
+    return result
+  }
+
+  const getPlayList = (id) => {
+    let result = null
+    techniquesLists.value.forEach((playList) => {
+      if (playList.id == id) {
+        result = playList
+      }
+    });
     return result
   }
 
@@ -145,6 +155,7 @@ export const useBjjLibraryStore = defineStore('bjj-library', () => {
     refreshData,
     updateTechnicalsLists,
     getVideosOfListSelected,
+    getPlayList,
     addList,
     deleteList,
     addVideoInList,

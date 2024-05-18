@@ -5,10 +5,15 @@
             <p class="technicalItem">{{ title }}</p>
             <!-- <q-btn class="align-left" style="margin: 12px 5px 0px 0px;" flat ><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M480-345 240-585l56-56 184 184 184-184 56 56-240 240Z"/></svg></q-btn> -->
             
-            <q-btn-dropdown @click="showContent = !showContent" class="align-left" style="margin: 12px 5px 0px 0px;" flat dropdown-icon="menu">
+            <q-btn-dropdown v-if="owner" @click="showContent = !showContent" class="align-left" style="margin: 12px 5px 0px 0px;" flat dropdown-icon="menu">
                 <q-list>
                     <q-item clickable v-close-popup @click="onItemClick">
-                    <q-item-section>
+                    <q-item-section>                       
+                        <q-item-label @click="goConfigList()">Editar</q-item-label>
+                    </q-item-section>
+                    </q-item>
+                    <q-item clickable v-close-popup @click="onItemClick">
+                    <q-item-section>                       
                         <q-item-label @click="confirmDeleteDialog=true">Eliminar</q-item-label>
                     </q-item-section>
                     </q-item>
@@ -48,15 +53,14 @@ import { useBjjLibraryStore } from 'src/stores/bjj-library'
 const useBjjLibrary = useBjjLibraryStore()
 
 export default defineComponent({
-    name: 'TechnicalItem',
-    props: ['id','title','technicals'],
+    name: 'VideoList',
+    props: ['id','title','technicals', 'owner'],
     setup(props) {
         const isCheck = ref(false)
         const showContent = ref(false)
         const confirmDeleteDialog = ref(false)
         
         onMounted(()=> {
-            console.log(useBjjLibrary.listsSelected)
             isCheck.value = useBjjLibrary.listsSelected.includes(props.id)
         })
 
@@ -74,6 +78,10 @@ export default defineComponent({
                 }
             }
         }
+
+        function goConfigList () {
+            this.$router.push(`/playList/${props.id}`);
+        }
         
         function deleteList () {
             useBjjLibrary.deleteList(props.id)
@@ -85,6 +93,7 @@ export default defineComponent({
             confirmDeleteDialog,
             onCheck,
             deleteList,
+            goConfigList,
         }
     }
 })

@@ -88,7 +88,7 @@ export default defineComponent ({
     const showAddtoListDialog = ref(false) 
     const addListCheck = ref({})
     
-    const techniquesLists = computed(() => useBjjLibrary.techniquesLists)
+    const techniquesLists = computed(() => useBjjLibrary.techniquesLists.filter((list)=> list.owner!=null))
     
 
     onMounted(() => {
@@ -101,8 +101,6 @@ export default defineComponent ({
             })
             addListCheck.value[list.id] = result
         });
-
-        console.log('montado',addListCheck.value)
     })
 
     

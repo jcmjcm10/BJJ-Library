@@ -21,7 +21,6 @@ export default defineComponent({
   emits: ['onClickVideo', 'editVideo'],
   setup(props, context) {  
     const linkMiniatura = ref('')
-    const videoMenu = ref(null)
     const confirmDeleteDialog = ref(false)
     linkMiniatura.value = `https://img.youtube.com/vi/${props.video.youtubeID}/sddefault.jpg`
 
@@ -31,16 +30,13 @@ export default defineComponent({
    
     function onClickVideo () {
       context.emit('onClickVideo',props.video)
-      videoMenu.value.hide()
     }
     
     return {
       linkMiniatura,
-      videoMenu,
       videoContextMenu,
       onClickVideo,
       confirmDeleteDialog
-      
     }
   }
 

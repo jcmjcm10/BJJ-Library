@@ -2,12 +2,13 @@
   <q-page class="">
     <h5 style="margin: 10px;">Listas disponibles</h5>
     <div>
-      <TechnicalItem
+      <VideoList
         v-for="technicalList in technicalsLists"
         :key="technicalList.id"
         :id="technicalList.id"
         :title="technicalList.title"
         :technicals="technicalList.videos"
+        :owner="technicalList.owner"
       />
     </div>
 
@@ -37,7 +38,7 @@ import { defineComponent, computed, ref } from 'vue'
 
 import { useBjjLibraryStore } from 'stores/bjj-library'
 
-import TechnicalItem from 'src/components/TechnicalItem.vue'
+import VideoList from 'src/components/VideoList.vue'
 
 const useBjjLibrary = useBjjLibraryStore()
 
@@ -45,7 +46,7 @@ export default defineComponent({
   name: 'VideoListPage',
 
   components: {
-    TechnicalItem
+    VideoList
   },
   setup () {
 
