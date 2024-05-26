@@ -1,7 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import * as BJJLIBRARY_API from 'src/API/bjj-library'
-import axios from 'axios'
 import { useLoginStore } from 'src/stores/login'
 
 
@@ -106,6 +105,13 @@ export const useBjjLibraryStore = defineStore('bjj-library', () => {
     })
   }
 
+  const reorderVideoListItem = (playListId, requestBody) => {
+    console.log(playListId)
+    BJJLIBRARY_API.reorderVideoListItem(playListId, requestBody)
+    .then((response) => {
+    })
+  }
+
   //Getters
 
   const getVideo = (id) => {
@@ -160,6 +166,7 @@ export const useBjjLibraryStore = defineStore('bjj-library', () => {
     deleteList,
     addVideoInList,
     removeVideoInList,
+    reorderVideoListItem,
   }
 
 })

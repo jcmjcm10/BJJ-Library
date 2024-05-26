@@ -28,6 +28,7 @@ import { useRoute } from 'vue-router'
 import { useBjjLibraryStore } from 'src/stores/bjj-library'
 import PlayListItem from 'src/components/PlayListItem.vue'
 import VideoPanel from 'src/components/VideoPanel.vue'
+import { list } from 'postcss'
 
 
 export default defineComponent ({
@@ -54,8 +55,9 @@ export default defineComponent ({
         // findIndex((list) => list.id == requestBody.list)
         console.log('value', playList.value)
         const videoIndex = playList.value.videos.findIndex((video) => video.id == videoID)
-        if (up) {
+        if (up) {          
           if (videoIndex > 0) {
+            useBjjLibrary.reorderVideoListItem(playList.value.id,{op:'up', video: videoID})
             const aux = playList.value.videos[videoIndex]
             playList.value.videos[videoIndex] = playList.value.videos[videoIndex-1]
             playList.value.videos[videoIndex-1] = aux
@@ -63,6 +65,7 @@ export default defineComponent ({
 
         } else {
           if (videoIndex + 1 < playList.value.videos.length) {
+            useBjjLibrary.reorderVideoListItem(playList.value.id,{op:'down', video: videoID})
             const aux = playList.value.videos[videoIndex]
             playList.value.videos[videoIndex] = playList.value.videos[videoIndex+1]
             playList.value.videos[videoIndex+1] = aux

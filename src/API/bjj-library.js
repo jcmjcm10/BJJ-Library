@@ -1,8 +1,8 @@
 import axios from 'axios'
 import { useLoginStore } from 'src/stores/login'
-// const API_ROOT = 'http://127.0.0.1:8000/'
+const API_ROOT = 'http://127.0.0.1:8000/'
 // const API_ROOT = 'https://jcmjcm10.pythonanywhere.com/'
-const API_ROOT = 'https://u1973231.pythonanywhere.com/'
+// const API_ROOT = 'https://u1973231.pythonanywhere.com/'
 
 
 export function getAxiosConfig () {
@@ -110,6 +110,11 @@ export function addVideoInList (requestBody) {
 export function removeVideoInList (requestBody) {
     requestBody.op = 'remove'
     const url = API_ROOT + 'VideoList/' + requestBody.list + '/'
+    return axios.put(url, JSON.stringify(requestBody), getAxiosConfig())
+}
+
+export function reorderVideoListItem (playListId, requestBody) {
+    const url = API_ROOT + 'VideoList/' + playListId + '/'
     return axios.put(url, JSON.stringify(requestBody), getAxiosConfig())
 }
 
