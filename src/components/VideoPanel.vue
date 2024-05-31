@@ -11,9 +11,21 @@
             </q-btn>
             <q-btn flat rounded class="video-more-options">                
                 <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="black"><path d="M480-160q-33 0-56.5-23.5T400-240q0-33 23.5-56.5T480-320q33 0 56.5 23.5T560-240q0 33-23.5 56.5T480-160Zm0-240q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 56.5T480-400Zm0-240q-33 0-56.5-23.5T400-720q0-33 23.5-56.5T480-800q33 0 56.5 23.5T560-720q0 33-23.5 56.5T480-640Z"/></svg>
+                <q-menu>
+                    <q-list style="min-width: 100px">
+                        <q-item clickable v-close-popup>
+                            <q-item-section @click="editVideo()">Editar</q-item-section>
+                        </q-item>
+                        <q-separator />
+                        <q-item clickable v-close-popup>
+                            <q-item-section @click="showConfirmDeleteDialog=true">Eliminar</q-item-section>
+                        </q-item>
+                    </q-list>
+                </q-menu>
             </q-btn>
         </div>
 
+        <!-- Tags box -->
         <div class="tag-continer">
             <div 
                 class="tag-box"
@@ -22,11 +34,6 @@
             >
                 {{ tag }}
             </div>
-        </div>
-        <div class="video-panel-content-btn">
-            <q-btn flat  @click="editVideo()" style="color: white; background-color: var(--q-primary);">Editar</q-btn>
-            <q-btn @click="showConfirmDeleteDialog=true" flat style="margin-left:10px; background: #ed4646; color:white;">Eliminar</q-btn>
-
         </div>
 
         <!-- delete confirm dialog -->
@@ -72,7 +79,7 @@
 
 <script>
 import { defineComponent, onMounted, ref, computed } from 'vue'
-
+import { useQuasar } from 'quasar'
 
 import { useBjjLibraryStore } from 'src/stores/bjj-library'
 import { Result } from 'postcss'
@@ -83,7 +90,7 @@ export default defineComponent ({
     name: 'VideoPanel',
     props:['video'],
     setup (props, context) {
-    
+    const $q = useQuasar()
     const showConfirmDeleteDialog = ref(false)
     const showAddtoListDialog = ref(false) 
     const addListCheck = ref({})
@@ -110,6 +117,17 @@ export default defineComponent ({
 
     function deleteVideo () {
       useBjjLibrary.deleteVideo(props.video.id)
+      .then(response => {
+        if (response.status === 200) {
+            $q.notify({
+              message: 'Video eliminado',
+              caption: '',
+              color: 'green',
+              icon: 'check',
+              position: 'top'
+            })
+        }
+      })
     }
 
     function addVidoToList (listId) {        

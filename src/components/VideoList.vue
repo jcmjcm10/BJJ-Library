@@ -31,22 +31,30 @@
                 
             </ol>
         </div>    
-        
-        <q-dialog v-model="confirmDeleteDialog">
-            <q-card style="padding: 40px;">
-                ¿Seguro que quieres eliminar-lo?
-                <q-btn v-close-popup @click="deleteList" style="margin-left: 10px;">Si</q-btn>
-                <q-btn v-close-popup style="margin-left: 10px;">No</q-btn>
-            </q-card>
-        </q-dialog>
             
-       
+         <!-- delete confirm dialog -->
+        <q-dialog
+            v-model="confirmDeleteDialog"
+        >
+            <div style=" width:300px; height: 150px; background: white; font-weight: bold;">
+                <p style="margin: 30px 20px 0px 20px;">¿Seguro que quieres eliminar la Lista?</p>
+                <br>
+                <q-btn @click="deleteList()" v-close-popup style="margin: 0 10px 0 75px; width: 70px;"  >
+                    Sí
+                </q-btn>
+                <q-btn v-close-popup style="width: 70px;">
+                    No
+                </q-btn>
+            </div>
+        </q-dialog>
+        
         
     </div>
 </template>
   
 <script>
 import { defineComponent, ref, onMounted } from 'vue'
+import { useQuasar } from 'quasar'
 
 import { useBjjLibraryStore } from 'src/stores/bjj-library'
 
@@ -56,6 +64,7 @@ export default defineComponent({
     name: 'VideoList',
     props: ['id','title','technicals', 'owner'],
     setup(props) {
+        const $q = useQuasar()
         const isCheck = ref(false)
         const showContent = ref(false)
         const confirmDeleteDialog = ref(false)
@@ -85,6 +94,17 @@ export default defineComponent({
         
         function deleteList () {
             useBjjLibrary.deleteList(props.id)
+            .then((response) => {
+                if(response.status === 200) {
+                    $q.notify({
+                        message: `Lista ${props.title} eliminada.`,
+                        caption: '',
+                        color: 'green',
+                        icon: 'check',
+                        position: 'top'
+                    })
+                }
+            })
         }
 
         return {

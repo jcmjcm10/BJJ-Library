@@ -44,38 +44,42 @@ export const useBjjLibraryStore = defineStore('bjj-library', () => {
   }
   
   const saveVideo = (requestBody) => {
-    BJJLIBRARY_API.addVideo(requestBody)
-      .then(response => {
-        refreshData()
-      })
-
+    return BJJLIBRARY_API.addVideo(requestBody)
+    .then(response => {
+      refreshData()
+      return response
+    })
   } 
 
   const addList = (requestBody) => {
-    BJJLIBRARY_API.addList(requestBody)
+    return BJJLIBRARY_API.addList(requestBody)
     .then(response => {
       refreshData()
+      return response
     })
   }
 
   const updateVideo = (requestBody) => {
-    BJJLIBRARY_API.updateVideo(requestBody)
+    return BJJLIBRARY_API.updateVideo(requestBody)
     .then(response => {
       refreshData()
+      return response
     })
   }
   
   const deleteVideo = (pk) => {
-    BJJLIBRARY_API.deleteVideo(pk)
+    return BJJLIBRARY_API.deleteVideo(pk)
     .then(response => {
       refreshData()
+      return response
     })
   }
 
   const deleteList = (pk) => {
-    BJJLIBRARY_API.deleteList(pk)
+    return BJJLIBRARY_API.deleteList(pk)
     .then(response => {
       refreshData()
+      return response
     })
   }
 

@@ -31,6 +31,7 @@
 
 <script>
 import { defineComponent, ref, computed, onMounted } from 'vue'
+import { useQuasar } from 'quasar'
 
 import { useBjjLibraryStore } from 'src/stores/bjj-library'
 
@@ -40,6 +41,8 @@ export default defineComponent ({
     name: 'AddVideoCard',
     props:['id'],
     setup (props, context) {
+      const $q = useQuasar()
+
       const useBjjLibrary = useBjjLibraryStore()
       const editVideo = ref({title: '', url: '', youtubeID: '', tags: []})
       const tagsSelect = ref([])
@@ -55,6 +58,17 @@ export default defineComponent ({
       function saveVideo () {
         editVideo.value.tags = tagsSelect.value
         useBjjLibrary.updateVideo(editVideo.value)
+        .then((response) => {
+          if (response.status === 200) {
+            $q.notify({
+              message: 'Canvios Guardados',
+              caption: '',
+              color: 'green',
+              icon: 'check',
+              position: 'top'
+            })
+          }
+        })
         context.emit('closeUpdateVideoPanell')
       }
 

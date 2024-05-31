@@ -32,7 +32,7 @@
     </q-card-section>
 
   
-    <!--Viibility-->
+    <!--Vibility-->
     <q-card-section>
       <p>Visibilidad</p>
      
@@ -72,7 +72,7 @@
     </q-card-section>
 
     <q-card-actions align="right">
-      <q-btn @click="saveVideo" >Añadir</q-btn>
+      <q-btn :disable="uploadingVideo" @click="saveVideo" >Añadir</q-btn>
     </q-card-actions>
 
   </q-card>
@@ -80,6 +80,7 @@
 
 <script>
 import { defineComponent, ref, computed } from 'vue'
+import { useQuasar } from 'quasar'
 
 import { useBjjLibraryStore } from 'src/stores/bjj-library'
 import { useLoginStore } from 'src/stores/login'
@@ -90,6 +91,8 @@ export default defineComponent ({
     name: 'AddVideoCard',
     props:['videoData'],
     setup (props, context) {
+      const $q = useQuasar()
+
       const useBjjLibrary = useBjjLibraryStore()
       const useLogin = useLoginStore()
       const newVideo = ref({title: '', url: '', youtubeID: '', tags: [], list: null, visibility: 'private'})
@@ -97,6 +100,7 @@ export default defineComponent ({
       const visibility = ref('private')
       const listSelected = ref(null)
       const visibilityOptions = ref(['private','public'])
+      const uploadingVideo = ref(false)
       const authentication = computed(() =>{
         console.log('authentication',useLogin.authentication)
         return useLogin.authentication
@@ -120,12 +124,33 @@ export default defineComponent ({
       })
 
       function saveVideo () {
+        uploadingVideo.value = true
         newVideo.value.tags = tagsSelect.value
         newVideo.value.visibility = visibility.value
-        console.log('listselected', listSelected.value)
         newVideo.value.list = listSelected.value ? parseInt(listSelected.value.value) : null
-        console.log('newVideo', newVideo.value)
         useBjjLibrary.saveVideo(newVideo.value)
+        .then((response) => {
+          if (response.status === 200) {
+            $q.notify({
+              message: 'Video añadido',
+              caption: '',
+              color: 'green',
+              icon: 'check',
+              position: 'top'
+            })
+          }          
+          setTimeout(() => {uploadingVideo.value = false}, 1000)
+        })
+        .catch((response) => {
+          $q.notify({
+              message: 'Error al subir el video',
+              caption: '',
+              color: 'red',
+              icon: 'close',
+              position: 'top'
+            })
+          setTimeout(() => {uploadingVideo.value = false}, 1000)
+        })
       }
 
       function autoFillYoutubeID () {
@@ -148,6 +173,7 @@ export default defineComponent ({
         lists,
         listSelected,
         authentication,
+        uploadingVideo,
         saveVideo,
         autoFillYoutubeID
       }

@@ -25,7 +25,7 @@
         <q-input class="inputField" outlined v-model="title" label="Title" />        
         
         <q-card-actions align="right">
-          <q-btn @click="createList" right>Crear</q-btn>
+          <q-btn v-close-popup @click="createList" right>Crear</q-btn>
         </q-card-actions>
       </q-card>
     </q-dialog>
@@ -35,6 +35,7 @@
 
 <script>
 import { defineComponent, computed, ref } from 'vue'
+import { useQuasar } from 'quasar'
 
 import { useBjjLibraryStore } from 'stores/bjj-library'
 
@@ -49,6 +50,7 @@ export default defineComponent({
     VideoList
   },
   setup () {
+    const $q = useQuasar()
 
     const showAddListDialog = ref(false)
     const title = ref('')
@@ -60,8 +62,27 @@ export default defineComponent({
     
     function createList () {
       useBjjLibrary.addList({title: title.value})
+      .then((response) => {
+        if(response.status === 201) {
+          $q.notify({
+            message: `Lista ${title.value} añadida.`,
+            caption: '',
+            color: 'green',
+            icon: 'check',
+            position: 'top'
+          })
+        }
+      })
+      .catch((response) => {
+        $q.notify({
+          message: 'Error al crear la Lista.',
+          caption: '',
+          color: 'red',
+          icon: 'close',
+          position: 'top'
+        })
+      })
     }
-
 
     return {
       technicalsLists,
