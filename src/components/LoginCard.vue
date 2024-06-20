@@ -1,7 +1,7 @@
 <template>
     <div class="login-panell" >
 
-      <div v-if="!isAuthenticate">
+    <div v-if="!isAuthenticate && !loading">
         <div class="content">
         <h1>Login</h1>
         <h2>e-mail</h2>
@@ -14,7 +14,7 @@
         </div>  
       </div>      
     </div>
-    <div v-if="isAuthenticate" class="content-singin">
+    <div v-if="isAuthenticate && !loading" class="content-singin">
         <div style="display: flex; align-items: center; justify-content: center;">
           <q-img class="img-avatar"
             src="src/assets/userDefaultPhoto.png"
@@ -27,7 +27,12 @@
             <button @click="logout()">Logout</button>    
         </div>    
     </div>
-    
+    <div v-if="loading">
+      <q-spinner
+        color="primary"
+        size="8em"
+      />
+    </div>
      
 
 </div>
@@ -35,6 +40,7 @@
 
 <script>
 import { defineComponent, ref, computed } from 'vue'
+import { useQuasar } from 'quasar'
 
 import { useLoginStore } from 'src/stores/login'
 
@@ -43,18 +49,32 @@ export default defineComponent({
     components: {
     },
     setup (props, context) {
+      const $q = useQuasar()
       const useLogin = useLoginStore()
       const username = ref('')
       const password = ref('')
       const isAuthenticate = ref(useLogin.isAuthenticate())
       const authentication = computed(()=> useLogin.getAuthentication())
-      
+      const loading = ref(false)
       function login() {
+        loading.value = true
         useLogin.login(username.value, password.value)
         .then((response)=> {          
           if (response.status === 201) {
             isAuthenticate.value = true
           }
+          loading.value = false
+        })
+        .catch(response => {
+          console.log(response.response.data)
+          $q.notify({
+            message: response.response.data.mensaje,
+            caption: '',
+            color: 'red',
+            icon: 'check',
+            position: 'top'
+          })
+          loading.value = false
         })
       }
 
@@ -70,6 +90,7 @@ export default defineComponent({
         password,
         isAuthenticate,
         authentication,
+        loading
       }
     }
 })  
