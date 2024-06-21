@@ -77,6 +77,10 @@ export const useLoginStore = defineStore('login', () => {
     }
   }
 
+  function register (requestBody) {
+    return BJJLIBRARY_API.register(requestBody)
+  }
+
   return {
     getUserName,
     getEmail,
@@ -85,6 +89,7 @@ export const useLoginStore = defineStore('login', () => {
     setAuthentication,
     login,
     logout,
+    register,
     getAuthentication,
     isAuthenticate,
     authentication

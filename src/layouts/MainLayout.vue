@@ -25,7 +25,7 @@
         <q-item-label v-if="userName != ''" class="q-ma-sm"  @click="loginPanell=true"> {{ userName }}</q-item-label>
         <q-btn  v-if="userName == ''" flat class="q-ma-sm" style="font-size: 13px;" @click="loginPanell=true">Login</q-btn>
         <q-dialog v-model="loginPanell">
-          <LoginCard/>
+          <LoginPanel/>
         </q-dialog>
       </q-toolbar>
     </q-header>    
@@ -77,7 +77,7 @@ import { computed, defineComponent, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useLoginStore } from 'src/stores/login'
 import AddVideoCard from 'src/components/AddVideoCard.vue'
-import LoginCard from 'src/components/LoginCard.vue'
+import LoginPanel from 'src/components/LoginPanel.vue'
 
 
 export default defineComponent({
@@ -85,7 +85,7 @@ export default defineComponent({
 
   components: {
     AddVideoCard,
-    LoginCard
+    LoginPanel
   },
 
   setup () {

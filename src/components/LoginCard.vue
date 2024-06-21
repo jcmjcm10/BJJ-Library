@@ -1,20 +1,20 @@
 <template>
-    <div class="login-panell" >
+  <!-- Login -->
+  <div v-if="!isAuthenticate && !loading" class="content">
+    <h1>Login</h1>
+    <h2>e-mail</h2>
+    <input class="login-input" type="text" v-model="username">
 
-    <div v-if="!isAuthenticate && !loading">
-        <div class="content">
-        <h1>Login</h1>
-        <h2>e-mail</h2>
-        <input class="login-input" type="text" v-model="username">
-
-        <h2>Password</h2>
-        <input class="login-input" type="password" v-model="password">
-        <div class="button-login"> 
-            <button @click="login()">Login</button>    
-        </div>  
-      </div>      
+    <h2>Password</h2>
+    <input class="login-input" type="password" v-model="password">
+    <div class="button-login"> 
+        <button @click="login()">Login</button>    
     </div>
-    <div v-if="isAuthenticate && !loading" class="content-singin">
+      <p @click="goRegister()" style="padding-left: 90px; padding-top: 10px; font-size: 16px; text-decoration-line: underline;" href="">Registrarse</p> 
+  </div> 
+
+  <!-- Authenticate -->
+  <div v-if="isAuthenticate && !loading" class="content-singin">
         <div style="display: flex; align-items: center; justify-content: center;">
           <q-img class="img-avatar"
             src="src/assets/userDefaultPhoto.png"
@@ -26,16 +26,16 @@
         <div class="button-login"> 
             <button @click="logout()">Logout</button>    
         </div>    
-    </div>
-    <div v-if="loading">
+  </div>
+  <!-- Loading -->
+  <div v-if="loading">
       <q-spinner
         color="primary"
         size="8em"
       />
-    </div>
-     
+  </div> 
+  
 
-</div>
 </template>
 
 <script>
@@ -45,7 +45,8 @@ import { useQuasar } from 'quasar'
 import { useLoginStore } from 'src/stores/login'
 
 export default defineComponent({
-    name: 'MainLayout',    
+    name: 'LoginCard',    
+    emits: ['goRegister'],
     components: {
     },
     setup (props, context) {
@@ -56,6 +57,11 @@ export default defineComponent({
       const isAuthenticate = ref(useLogin.isAuthenticate())
       const authentication = computed(()=> useLogin.getAuthentication())
       const loading = ref(false)
+     
+      function goRegister () {
+        context.emit('goRegister')
+      }
+
       function login() {
         loading.value = true
         useLogin.login(username.value, password.value)
@@ -86,6 +92,7 @@ export default defineComponent({
       return {
         login,
         logout,
+        goRegister,
         username,
         password,
         isAuthenticate,
@@ -103,7 +110,7 @@ export default defineComponent({
   justify-content: center;
   font-family: 'Pin-Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', Helvetica, 'ヒラギノ角ゴ Pro W3', 'メイリオ', Meiryo, 'ＭＳ Ｐゴシック', Arial, sans-serif;
   width: 350px;
-  height: 400px;
+  height: 600px;
   background: white;
   border: 1px solid rgb(236, 236, 236);
   border-radius: 10px;
