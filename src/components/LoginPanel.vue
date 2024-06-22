@@ -1,24 +1,21 @@
 <template>
-  <div class="login-panell" >
-
+  <div v-if="card == 'login'" class="login-panell" >
     <!-- Login -->
-    <div v-if="card == 'login'">
+    <div style="width: 100%;">
     <LoginCard
       @goRegister = goRegister()
     />
     </div>
+  </div>
 
      <!-- Register -->
-    <div v-if="card == 'register'">
+  <div v-if="card == 'register'" class="register-panell" >
+    <div>
       <RegistCard
         @goLogin = goLogin()
       />
-    </div>
-
-
+    </div>   
   </div>
-
-
 </template>
 
 <script>
@@ -60,7 +57,7 @@ export default defineComponent({
   justify-content: center;
   font-family: 'Pin-Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', Helvetica, 'ヒラギノ角ゴ Pro W3', 'メイリオ', Meiryo, 'ＭＳ Ｐゴシック', Arial, sans-serif;
   width: 350px;
-  height: 700px;
+  height: 450px;
   background: white;
   border: 1px solid rgb(236, 236, 236);
   border-radius: 10px;
@@ -73,6 +70,26 @@ export default defineComponent({
   right: 0px;
   margin: auto;
 
+}
+
+.register-panell {
+  display: flex;
+  align-items: center; 
+  justify-content: center;
+  font-family: 'Pin-Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', Helvetica, 'ヒラギノ角ゴ Pro W3', 'メイリオ', Meiryo, 'ＭＳ Ｐゴシック', Arial, sans-serif;
+  width: 350px;
+  height: 700px;
+  background: white;
+  border: 1px solid rgb(236, 236, 236);
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  margin: auto;
 }
 
 .login-panell .content {

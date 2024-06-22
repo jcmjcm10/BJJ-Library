@@ -25,6 +25,7 @@
 
 <script>
 import { defineComponent, ref, computed } from 'vue'
+import { useQuasar } from 'quasar'
 
 import { useLoginStore } from 'src/stores/login'
 
@@ -35,6 +36,7 @@ export default defineComponent({
     },
     setup (props, context) {
       const userLogin = useLoginStore()
+      const $q = useQuasar()
 
       const username = ref('')
       const password = ref('')
@@ -60,11 +62,18 @@ export default defineComponent({
         }
         userLogin.register(requestData)
         .then( response => {
-          console.log('RESPONSE', response)
+          if (response.status == 201) {
+            $q.notify({
+              message: 'Usuario Registrado correctamente',
+              caption: '',
+              color: 'green',
+              icon: 'check',
+              position: 'top'
+            })
+            goLogin()
+          }
         })
         .catch( response => {
-          console.log('RESPONSE', response)
-
           errorMessage.value = response.response.data.message
           console.log(errorMessage.value)
         })
@@ -84,28 +93,7 @@ export default defineComponent({
 </script>
 
 <style>
-.login-panell {
-  display: flex;
-  align-items: center; 
-  justify-content: center;
-  font-family: 'Pin-Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', Helvetica, 'ヒラギノ角ゴ Pro W3', 'メイリオ', Meiryo, 'ＭＳ Ｐゴシック', Arial, sans-serif;
-  width: 350px;
-  height: 600px;
-  background: white;
-  border: 1px solid rgb(236, 236, 236);
-  border-radius: 10px;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-
-  position: absolute;
-  top: 0px;
-  bottom: 0px;
-  left: 0px;
-  right: 0px;
-  margin: auto;
-
-}
-
-.login-panell .content {
+.register-panell .content {
   width: 75%;
   position: absolute;
   top: 50%;
@@ -113,7 +101,7 @@ export default defineComponent({
   transform: translate(-50%, -50%);
 }
 
-.login-panell .content h1 {
+.register-panell .content h1 {
   font-size: 32px;
   height: 55px;
   font-weight: bold;
@@ -122,7 +110,7 @@ export default defineComponent({
   margin-top: -50px;
 }
 
-.login-panell .content h2 {
+.register-panell .content h2 {
   color: rgb(104, 104, 104);
   font-size: 20px;
   margin: 10px 0px -10px 0px;

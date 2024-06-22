@@ -12,6 +12,7 @@
       />
     </div>
 
+    <!-- Float button + -->
     <q-btn
       class="float-bottom-right"
       round
@@ -97,8 +98,8 @@ export default defineComponent({
 <style>
 
 .float-bottom-right {
-  position: absolute;
-  bottom: 20px;
+  position: fixed;
+  bottom: 65px;
   right: 10px;
 }
 

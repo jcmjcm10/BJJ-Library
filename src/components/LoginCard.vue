@@ -14,8 +14,11 @@
   </div> 
 
   <!-- Authenticate -->
+   <div class="content">
+    
+   </div>
   <div v-if="isAuthenticate && !loading" class="content-singin">
-        <div style="display: flex; align-items: center; justify-content: center;">
+        <div style="display: flex; align-items: center; justify-content: center; margin-top: -70px;">
           <q-img class="img-avatar"
             src="src/assets/userDefaultPhoto.png"
           />
@@ -28,7 +31,7 @@
         </div>    
   </div>
   <!-- Loading -->
-  <div v-if="loading">
+  <div v-if="loading" style="display: flex; align-items: center; justify-content: center;">
       <q-spinner
         color="primary"
         size="8em"
@@ -122,7 +125,6 @@ export default defineComponent({
   left: 0px;
   right: 0px;
   margin: auto;
-
 }
 
 .login-panell .content {
@@ -192,7 +194,8 @@ export default defineComponent({
 .content-singin {
   display: block;
   width: 75%;
-  height: 100%
+  height: 100%;
+  margin: auto;  
 }
 .content-singin h1 {
   font-size: 32px;
