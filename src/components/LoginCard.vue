@@ -2,10 +2,10 @@
   <!-- Login -->
   <div v-if="!isAuthenticate && !loading" class="content">
     <h1>Login</h1>
-    <h2>e-mail</h2>
+    <h2>Nombre de usuario</h2>
     <input class="login-input" type="text" v-model="username">
 
-    <h2>Password</h2>
+    <h2>Contraseña</h2>
     <input class="login-input" type="password" v-model="password">
     <div class="button-login"> 
         <button @click="login()">Login</button>    
@@ -20,7 +20,7 @@
   <div v-if="isAuthenticate && !loading" class="content-singin">
         <div style="display: flex; align-items: center; justify-content: center; margin-top: -70px;">
           <q-img class="img-avatar"
-            src="src/assets/userDefaultPhoto.png"
+            src="https://www.shutterstock.com/image-vector/default-avatar-profile-icon-social-600nw-1677509740.jpg"
           />
         </div>
         <div style="display: flex; align-items: center; justify-content: center;">
@@ -75,7 +75,6 @@ export default defineComponent({
           loading.value = false
         })
         .catch(response => {
-          console.log(response.response.data)
           $q.notify({
             message: response.response.data.mensaje,
             caption: '',

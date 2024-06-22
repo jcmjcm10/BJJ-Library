@@ -75,7 +75,6 @@ export default defineComponent({
         })
         .catch( response => {
           errorMessage.value = response.response.data.message
-          console.log(errorMessage.value)
         })
       }
 

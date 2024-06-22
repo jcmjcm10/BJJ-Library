@@ -102,7 +102,6 @@ export default defineComponent ({
       const visibilityOptions = ref(['private','public'])
       const uploadingVideo = ref(false)
       const authentication = computed(() =>{
-        console.log('authentication',useLogin.authentication)
         return useLogin.authentication
       } )
       //Computeds

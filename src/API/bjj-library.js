@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { useLoginStore } from 'src/stores/login'
-const API_ROOT = 'http://127.0.0.1:8000/'
-// const API_ROOT = 'https://jcmjcm10.pythonanywhere.com/'
+// const API_ROOT = 'http://127.0.0.1:8000/'
+const API_ROOT = 'https://jcmjcm10.pythonanywhere.com/'
 // const API_ROOT = 'https://u1973231.pythonanywhere.com/'
 
 

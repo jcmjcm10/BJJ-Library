@@ -29,15 +29,8 @@ export default defineComponent({
     emits: ['onClickVideo', 'changeOrder'],
     setup(props, context) {
         const linkMiniatura = ref(`https://img.youtube.com/vi/${props.video.youtubeID}/sddefault.jpg`)
-        onMounted (()=> {
-            // const playListItem = document.getElementById('play-list-item')
-            // playListItem.addEventListener('mouseenter', () => {
-            // console.log('entro el raton a')
-            // })
-        })
-        
+            
         function dragVideo () {
-            console.log('emito')
             context.emit('dragVideo', true)
         } 
 
