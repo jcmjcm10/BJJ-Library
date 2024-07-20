@@ -15,12 +15,6 @@
           BJJ Library
         </q-toolbar-title>
         
-        <!--Añadir video-->
-        <q-dialog v-model="addVideoPanell">
-          <AddVideoCard  @closeAddVideoPanell="closeAddVideoPanell"/>
-        </q-dialog>
-
-
         <!--Apartado de login-->
         <q-item-label v-if="userName != ''" class="q-ma-sm"  @click="loginPanell=true"> {{ userName }}</q-item-label>
         <q-btn  v-if="userName == ''" flat class="q-ma-sm" style="font-size: 13px;" @click="loginPanell=true">Login</q-btn>
@@ -42,7 +36,7 @@
       style="color: black"
       >
       <p style="font-size: 23px;">Tablon de Anuncios</p>
-      <div>versión: 1.0.0b</div>
+      <div>versión: 1.0.1b</div>
     </q-item-label>
        
         <!--Anuncio1-->
@@ -76,7 +70,6 @@
 import { computed, defineComponent, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useLoginStore } from 'src/stores/login'
-import AddVideoCard from 'src/components/AddVideoCard.vue'
 import LoginPanel from 'src/components/LoginPanel.vue'
 
 
@@ -84,7 +77,6 @@ export default defineComponent({
   name: 'MainLayout',
 
   components: {
-    AddVideoCard,
     LoginPanel
   },
 
@@ -117,18 +109,9 @@ export default defineComponent({
        
       }
 
-    function openAddVideoPanell () {
-      addVideoPanell.value = true
-    }
-
-    function closeAddVideoPanell () {
-      addVideoPanell.value = false
-    }
-
     return {
       leftDrawerOpen,
       userName,
-      addVideoPanell,
       loginPanell,
       accesToken,
       tabMenu,
@@ -137,8 +120,6 @@ export default defineComponent({
       },
       editVideo,
       onClickBottomMenu,
-      openAddVideoPanell,
-      closeAddVideoPanell,
     }
   }
 })
