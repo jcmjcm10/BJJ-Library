@@ -88,6 +88,10 @@ export default defineComponent({
       
     })
 
+    const tagsList = computed (() => {
+      return useBjjLibrary.tagsList
+    })
+
     function refreshFilter() {
       setTimeout(()=> {
         filter('')
@@ -104,6 +108,16 @@ export default defineComponent({
       lastVideoIndex = videosPerPage
       filter(newTxtSearch)
       updateVideoPage()
+    }
+
+    function tagExist (string) {
+      string = string.toLowerCase()
+      for (let i = 0; i < tagsList.value.length; i++) {
+        if (tagsList.value[i].name.toLowerCase() == string) {
+          return true
+        }
+      }
+      return false
     }
 
     function filter(search) {
@@ -160,10 +174,16 @@ export default defineComponent({
       ori.forEach((tecnic) => {
         var accept = true
         words.forEach(word => {
+          word = word.toLowerCase()
           var containTag = false
+          var isTagExist = tagExist(word)
           tecnic.tags.forEach((tag) => {
-            if(tag.toLowerCase() == word.toLowerCase())
-            {
+            tag = tag.toLowerCase()
+            if(!isTagExist) {
+              if(tag.includes(word)) {
+                containTag = true
+              }
+            } else if(tag == word) {
               containTag = true
             }
           })
@@ -171,9 +191,11 @@ export default defineComponent({
             accept = false
           }
         })
+
         if(accept) {
             if(!filterResult.find((e) => e.id == tecnic.id)) {
               filterResult.push(tecnic)
+              console.log('añadido')
             }
           }
       })
@@ -261,7 +283,8 @@ export default defineComponent({
       pageVideos,
       updateVideoPanell,
       idVideoEdit,
-      selectVideo
+      selectVideo,
+      tagsList
     }
   }
   

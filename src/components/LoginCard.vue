@@ -75,7 +75,6 @@ export default defineComponent({
           loading.value = false
         })
         .catch(response => {
-          console.log(response.response.data)
           $q.notify({
             message: response.response.data.mensaje,
             caption: '',

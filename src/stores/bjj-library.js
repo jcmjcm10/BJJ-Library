@@ -24,7 +24,6 @@ export const useBjjLibraryStore = defineStore('bjj-library', () => {
       })
     updateTagsList()
     updateTechnicalsLists()
-    console.log('Listas',techniquesLists.value)
   }
   
   const updateTagsList = () => {
@@ -110,7 +109,6 @@ export const useBjjLibraryStore = defineStore('bjj-library', () => {
   }
 
   const reorderVideoListItem = (playListId, requestBody) => {
-    console.log(playListId)
     BJJLIBRARY_API.reorderVideoListItem(playListId, requestBody)
     .then((response) => {
     })
@@ -121,7 +119,6 @@ export const useBjjLibraryStore = defineStore('bjj-library', () => {
   const getVideo = (id) => {
     var result = null
     tecnicsList.value.forEach( video => { //OPT: fer cerca y no recorregut
-      console.log(video.id)
       if(video.id === id) {
         result = video
       }

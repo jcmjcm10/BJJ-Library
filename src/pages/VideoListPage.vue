@@ -57,7 +57,6 @@ export default defineComponent({
     const title = ref('')
     // Computeds
     const technicalsLists = computed(()=> {
-      console.log(useBjjLibrary.techniquesLists)
       return useBjjLibrary.techniquesLists
     })
     

@@ -42,7 +42,7 @@
       style="color: black"
       >
       <p style="font-size: 23px;">Tablon de Anuncios</p>
-      <div>versión: 0.0.1b</div>
+      <div>versión: 1.0.0b</div>
     </q-item-label>
        
         <!--Anuncio1-->
@@ -100,7 +100,6 @@ export default defineComponent({
     const tabMenu = ref('default')
 
     function editVideo(id) {
-      console.log('editando el video', id)
     }
 
     function onClickBottomMenu (value) {

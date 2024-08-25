@@ -24,7 +24,6 @@ export default {
       // Almacenamos una referencia al componente draggable
       var draggableComponent = null
       onMounted(()=> {
-        console.log(this.$refs)
         const draggableComponent = this.$refs.draggableRef;
         if (draggableComponent) {
         draggableComponent.draggable = true; // Habilitamos el arrastre
