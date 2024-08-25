@@ -8,7 +8,6 @@ const routes = [
       { path: 'videos', component: () => import('pages/IndexPage.vue') },
       { path: 'addVideo', component: () => import('pages/AddVideoPage.vue') },
       { path: 'playList/:id', component: () => import('pages/PlayListPage.vue') },
-      { path: 'prototype', component: () => import('pages/PrototypePage.vue') },
       { path: '', component: () => import('pages/IndexPage.vue') }
     ]
   },
