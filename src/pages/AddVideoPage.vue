@@ -8,7 +8,6 @@
     <q-card-section>
       <q-input class="inputField" outlined v-model="newVideo.title" label="Title" />
       <q-input class="inputField" outlined v-model="newVideo.url" @change="autoFillYoutubeID" label="Url" />
-      <q-input class="inputField" outlined v-model="newVideo.youtubeID" label="Youtube ID" />
 
       <q-select 
         class="inputField" 
@@ -157,8 +156,16 @@ export default defineComponent ({
         const expresionRegular = /embed\/(.*?)\?/
         const coincidencia = url.match(expresionRegular);
         if (coincidencia && coincidencia[1]) {
-          const result = coincidencia[1];
-          newVideo.value.youtubeID = result
+          const youtubeID = coincidencia[1];
+          newVideo.value.youtubeID = youtubeID
+        } else { // Convierte el Link .be a emblemed
+          const reg = /(?<=\.be\/)[^?]+/;
+          const coincidencia2 = url.match(reg);
+          if (coincidencia2 && coincidencia2[0]) {
+            const youtubeID = coincidencia2[0]
+            newVideo.value.youtubeID = youtubeID
+            newVideo.value.url = 'https://www.youtube.com/embed/' + youtubeID
+          }
         }
 
       }
