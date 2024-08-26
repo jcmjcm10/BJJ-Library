@@ -14,7 +14,8 @@
   "license": "Apache-2.0",
   "devDependencies": {
     "cordova-android": "^12.0.0",
-    "cordova-plugin-html2pdf": "^0.0.1"
+    "cordova-plugin-html2pdf": "^0.0.1",
+    "cordova-sqlite-storage": "^6.1.0"
   },
   "cordova": {
     "platforms": [
@@ -22,7 +23,8 @@
     ],
     "plugins": {
       "cordova-plugin-html2pdf": {},
-      "cordova-plugin-save-dialog": {}
+      "cordova-plugin-save-dialog": {},
+      "cordova-sqlite-storage": {}
     }
   },
   "dependencies": {
