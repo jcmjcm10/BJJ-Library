@@ -50,11 +50,13 @@
       </q-list>
     </q-drawer>
 
+    <!--Menú inferior-->>
     <q-footer bordered style=" color:white;">
         <q-tabs no-caps indicator-color="transparent" v-model="tabMenu" @click="onClickBottomMenu(tabMenu)">
           <q-tab name="videos" label="Videos" />
           <q-tab name="add" label="Añadir" />
           <q-tab name="lists" label="Listas" />
+          <q-tab name="debug" label="Debug" />
         </q-tabs>
       </q-footer>
       
@@ -104,6 +106,9 @@ export default defineComponent({
           break
         case 'lists':
           router.push('/lists');
+          break
+        case 'debug':
+          router.push('/debug');
           break
         }
        
